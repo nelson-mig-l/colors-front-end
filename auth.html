@@ -1,0 +1,27 @@
+﻿<html>
+<head>
+    <script src="http://code.jquery.com/jquery-1.4.2.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function() {
+        $.ajax({
+            url: 'https://none.cloud.tyk.io/color-names-closed/v1/near/rgb/195,255,104',
+          type: 'GET',
+          dataType: 'json',
+          success: function(data){
+             
+              alert(data[0]);
+          },
+          error: function() { alert('boo!'); },
+          beforeSend: setHeader
+        });
+      });
+
+      function setHeader(xhr) {
+          xhr.setRequestHeader('Authorization', '58132f106e2e21000105f1bd55b849ec8bd049ab5e05f9f58737af12');
+      }
+    </script>
+</head>
+<body>
+    <h1>Some Text</h1>
+</body>
+</html>

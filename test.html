@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="icon" href="favicon.ico">
+
+  <title>Color Names</title>
+  
+  
+  <style media="screen" type="text/css">
+  body {
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+  .container {
+    max-width: 730px;
+  }
+  .content {
+    margin: 40px 0;
+  }
+  .footer {
+    padding-top: 20px;
+    color: #777;
+    border-top: 1px solid #e5e5e5;
+  }
+ .jumbotron h1 {
+    text-shadow: 0px 0px 10px rgba(255, 255, 255, 1);
+  }
+  
+  .jumbotron p {
+    text-shadow: 0px 0px 10px rgba(255, 255, 255, 1);
+  } 
+  .content,
+  .footer {
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+  </style>
+
+  <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <!--<link href="css/custom.css" rel="stylesheet">-->
+  <script type="text/javascript" src="lib/jquery/jquery-2.1.4.min.js"></script>
+
+  <link rel="stylesheet" media="screen" type="text/css" href="lib/colorpicker/jquery.minicolors.css" />
+  <script type="text/javascript" src="lib/colorpicker/jquery.minicolors.js"></script>
+  
+  <script src="lib/jsrender/jsrender.min.js"></script>
+  <script id="result" type="text/x-jsrender"> <!-- use bootstrap list group -->
+  <div style="position:relative">
+    <div style="height:60px; width:50px; background-color:{{:reference}}; position:relative">
+      <div style="height:50px; width:50px; position: absolute; left:25px; top:5px; background-color:#{{:color}}"></div>  
+    </div>
+    <div style="position: absolute; left:85px; top:10px">
+      <b>{{:name}}</b><br/>{{:palette}}
+    </div>
+  </div>
+  </script>
+
+
+  <script src="color-api.js"></script>
+  
+  <script type="text/javascript" language="javascript">
+    $(document).ready(function() {
+
+      $('#colorpickerHolder').minicolors({
+        inline: true,
+        change: function(value, opacity) {
+            $('.jumbotron').css('background-color', value);
+        },
+        control: 'wheel'   
+      });
+      
+      $("#callbtn").click(function(event){
+        $('.output').empty();
+        var rgba = $('#colorpickerHolder').minicolors('rgbObject');
+        COLOR_API.nearRGB(rgba.r, rgba.g, rgba.b, createElement);  
+      });
+
+    });
+    
+    function createElement(entry) {
+      var template = $.templates("#result");
+      var htmlOutput = template.render(entry);
+      $(".output").append(htmlOutput);
+    }
+  </script>
+
+</head>
+
+<body>
+  <div class="container">
+    <div class="jumbotron">
+      <h1>Color Names</h1>
+      <p class="lead">A color names database</p>
+    </div>
+
+    <div class="row content">
+      <!--<div class="col-lg-6 input">
+        <h4>Select a color</h4>
+        <p>Use the mouse to select the color that you want to know the name.</p>
+        <center>
+          <p id="colorpickerHolder"></p>
+        </center>
+
+        <h4>Get its name</h4>
+        <p>Click on the button to get the name of the selected color.</p>
+        <center>
+          <input type="submit" id="callbtn" class="btn btn-info" value="Get color name"> </center>
+
+      </div>-->
+
+      <div class="col-lg-6">
+        <h4>Color names</h4>
+        <div class="output">
+
+
+
+<div class="panel panel-default">
+
+  <!-- Table -->
+  <table class="table">
+    <tr>
+      <th>Selected</th><th>Match</th><th>Color Name</th>
+    </tr>
+    <div>
+    <tr><td style="background-color:#FF0000">A</td><td style="background-color:#FFF000">B</td><td>C</td></tr>
+    <tr><td style="background-color:#FF0000">A</td><td>B</td><td>C</td></tr>
+    <tr><td>1</td><td>2</td><td>3</td></tr>
+    </div>
+  </table>
+  
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <p>Work in progress. I have nothing more to say.</p>
+    </footer>
+
+  </div>
+
+</body>
+
+</html>

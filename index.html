@@ -1,0 +1,127 @@
+﻿<!doctype html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Color Names</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="lib/farbtastic/farbtastic.css" rel="stylesheet">
+    <link href="color-names.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <div class="jumbotron">
+            <h1>Color Names</h1>
+            <p>Another color names database</p>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <h4>Select a color</h4>
+                <p>Use the mouse to select the color that you want to know the name.</p>
+                <div class="center">
+                    <div class="center" id="colorpickerholder"></div>
+                </div>
+                <h4>Get its name</h4>
+                <p>Click on the button to get the name of the selected color.</p>
+                <div class="center">
+                    <input type="submit" id="callbtn" class="btn btn-info" value="Get color name">
+                    <br />
+                    <br />
+                </div>
+                <p>Not all colors have a name. It will only show those who are close enough.</p>
+            </div>
+            <div class="col-md-6">
+                <div id="r" class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4>Color names</h4>
+                    </div>
+                    <table class="table" id="output">
+                        <tr>
+                            <td>Color names will be displayed here</td>
+                        </tr>
+                    </table>
+                    <div class="panel-footer panel-footer-min"></div>
+                </div>
+            </div>
+        </div>
+        <div class="center" id="aaddss">
+            <ins class="adsbygoogle" style="display:inline-block;width:468px;height:15px" data-ad-client="ca-pub-3700348498953712" data-ad-slot="6806120245">
+            </ins>
+        </div>
+        <hr>
+        <footer>
+            <p>Work in progress. <a href="https://pl.linkedin.com/in/nelsonmcg">I</a> have nothing more to say.</p>
+        </footer>
+
+    </div>
+
+    <!--script type="text/javascript" src="lib/jquery/jquery-2.1.4.min.js"></script-->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script type="text/javascript" src="lib/farbtastic/farbtastic.js"></script>
+    <script type="text/javascript" src="lib/jsrender/jsrender.min.js"></script>
+    <script type="text/javascript" src="color-api.js"></script>
+    <script type="text/javascript" src="color-names.js"></script>
+
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+        ga('create', 'UA-69794815-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+    <script>
+        window.onload = function () {
+            setTimeout(function () {
+                var ad = $(".adsbygoogle");
+                if (ad && ad.html().replace(/\s/g, "").length == 0) {
+                    $("#aaddss").empty();
+                    $("#aaddss").append('<p><a href="http://strandedbigwhitewhale.blogspot.com">The Stranded Big White Whale</a> or <a href="http://cyclopsparrot.blogspot.com">Cyclops Parrot</a></p>');
+                }
+            }, 2000);
+        };
+    </script>
+
+    <script id="result" type="text/x-jsrender">
+        <tr>
+            <td>
+                <div style="position:relative">
+                    <div style="height:60px; width:50px; background-color:{{:reference}}; position:relative">
+                        <div style="height:50px; width:50px; position: absolute; left:25px; top:5px; background-color:#{{:color}}"></div>
+                    </div>
+                    <div style="position: absolute; left:85px; top:10px">
+                        <b>{{:name}}</b>
+                        <br />{{:palette}}
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </script>
+    <script id="noresult" type="text/x-jsrender">
+        <tr>
+            <td>
+                <b>Didnt found any name for color.</b>
+            </td>
+        </tr>
+    </script>
+    <script id="errorresult" type="text/x-jsrender">
+        <tr>
+            <td>
+                <b>I'm sleeping now. Come back later.</b>
+            </td>
+        </tr>
+    </script>
+
+</body>
+</html>
