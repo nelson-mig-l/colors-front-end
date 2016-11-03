@@ -1,11 +1,4 @@
 $(document).ready(function() {
-	//$('#colorpickerholder').minicolors({
-	//	inline: true,
-	//	change: function(value, opacity) {
-	//		$('.jumbotron').css('background-color', value);
-	//	},
-	//	control: 'wheel'   
-	//});
     var rgbQuery;
     $('#colorpickerholder').farbtastic(function (color) {
         console.log(color);
@@ -17,10 +10,8 @@ $(document).ready(function() {
 	$("#callbtn").click(function(event){
 		$('#callbtn').prop('disabled', true);
 		$('#output').empty();
-		//var rgba = $('#colorpickerholder').minicolors('rgbObject');
         var rgba = $('#colorpickerholder')
 		
-        //COLOR_API.nearRGB(rgba.r, rgba.g, rgba.b, render);  
         COLOR_API.nearRGB(rgbQuery[0], rgbQuery[1], rgbQuery[2], render);
 	});
 });
@@ -33,8 +24,6 @@ function hexToRgbA(hex) {
             c = [c[0], c[0], c[1], c[1], c[2], c[2]];
         }
         c = '0x' + c.join('');
-        //return 'rgba(' + [(c >> 16) & 255, (c >> 8) & 255, c & 255].join(',') + ',1)';
-        //return [(c >> 16) & 255, (c >> 8) & 255, c & 255].join(',');
         return [(c >> 16) & 255, (c >> 8) & 255, c & 255];
     }
     throw new Error('Bad Hex');
@@ -69,8 +58,7 @@ function createNoResult() {
 }
 
 function createResult(entry) {
-	//var rgba = $('#colorpickerholder').minicolors('rgbObject');
-    entry.reference = $('.jumbotron').css('background-color');//"rgb(" + "255,255,255" + ")";
+    entry.reference = $('.jumbotron').css('background-color');
 	var template = $.templates("#result");
 	var htmlOutput = template.render(entry);
 	$("#output").append(htmlOutput);
