@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
     <meta name="author" content="">
+    <meta name="description" content="Get to know the name of that color.">
     <title>Color Names - Yet another color names database</title>
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -51,7 +51,7 @@
     </nav>
     <!-- Image Background Page Header -->
     <!-- Note: The background image is set within the business-casual.css file. -->
-    <header class="business-header">
+    <header class="color-header">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -80,13 +80,13 @@
                 <h2>Color names</h2>
                 <div id="r" class="panel panel-default">
                     <div class="panel-heading"></div>
-                    <table class="table" id="color-output">
-                        <tbody>
+                    <!--table class="table" id="color-table"-->
+                        <div id="color-container">
                             <tr>
                                 <td>Color names will be displayed here</td>
                             </tr>
-                        </tbody>
-                    </table>
+                        </div>
+                    <!--/table-->
                     <div class="panel-footer panel-footer-min"></div>
                 </div>
             </div>
@@ -106,42 +106,54 @@
     <!-- /.container -->
     <!-- jQuery -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
-
     <script type="text/javascript" src="farbtastic/farbtastic.js"></script>
+	<script type="text/javascript" src="jsrender/jsrender.min.js"></script>
+    <script type="text/javascript" src="color-api.js"></script>
+
     <script>
         $(document).ready(function () {
-            var rgbQuery;
             $('#color-picker').farbtastic(function (color) {
-                console.log(color);
-                rgbQuery = hexToRgbA(color);
-                $('.business-header').css('background-color', color);
-                console.log(rgbQuery);
+                $('.color-header').css('background-color', color);
             });
-
             $("#color-action").click(function (event) {
-                $('#callbtn').prop('disabled', true);
-                $('#output').empty();
-                var rgba = $('#colorpickerholder')
-
-                COLOR_API.nearRGB(rgbQuery[0], rgbQuery[1], rgbQuery[2], render);
+				var color = $('.color-header').css('background-color');
+				var rgb = color.replace('rgb(', '').replace(')', '').split(',');
+                $('#color-action').prop('disabled', true);
+                COLOR_API.nearRGB(rgb[0], rgb[1], rgb[2], render);
             });
         });
-
-        function hexToRgbA(hex) {
-            var c;
-            if (/^#([A-Fa-f0-9]{3}){1,2}$/.test(hex)) {
-                c = hex.substring(1).split('');
-                if (c.length == 3) {
-                    c = [c[0], c[0], c[1], c[1], c[2], c[2]];
-                }
-                c = '0x' + c.join('');
-                return [(c >> 16) & 255, (c >> 8) & 255, c & 255];
-            }
-            throw new Error('Bad Hex');
-        }
+		
+		function render(entries) {
+			$('#color-action').prop('disabled', false);
+			$('#color-container').empty();
+			if (entries.forEach == undefined) {
+				$('#color-container').append("Error");
+				return;
+			}
+			if (entries.length == 0) {
+				$('#color-container').append("No results");
+				return;
+			}
+			entries.forEach(function(entry) {
+				entry.reference = $('.color-header').css('background-color');
+				var template = $.templates('#color-item');
+				var htmlOutput = template.render(entry);
+				$('#color-container').append(htmlOutput);
+			});
+		}
+    </script>
+	<script id="color-item" type="text/x-jsrender">
+		<div style="position:relative">
+			<div style="height:60px; width:50px; background-color:{{:reference}}; position:relative">
+				<div style="height:50px; width:50px; position: absolute; left:25px; top:5px; background-color:#{{:color}}"></div>
+			</div>
+			<div style="position: absolute; left:85px; top:10px">
+				<b>{{:name}}</b>
+				<br />{{:palette}}
+			</div>
+		</div>
     </script>
 </body>
 </html>
