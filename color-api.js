@@ -7,7 +7,7 @@ var COLOR_API_CONFIG = {
 }
 
 var COLOR_API = {
-	/**
+    /**
 	 * r red
 	 * g green
 	 * b blue
@@ -15,7 +15,7 @@ var COLOR_API = {
 	 */
     nearRGB: function (r, g, b, callback) {
         $.ajax({
-            url: COLOR_API_CONFIG.DOMAIN + COLOR_API_CONFIG.PATH + 'near/rgb/' + r + "," + g + "," + b,
+            url: COLOR_API_CONFIG.DOMAIN + COLOR_API_CONFIG.PATH + 'near/rgb/' + r + ',' + g + ',' + b,
             headers: {
                 'Authorization': COLOR_API_CONFIG.AUTHORIZATION,
                 'Access-Control-Allow-Origin': '*',
